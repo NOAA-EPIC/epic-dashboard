@@ -4,6 +4,7 @@ import IntegrationTestResults from "./IntegrationTestResults";
 import SeleniumTestResults from "./SeleniumTestResults";
 import ApiTestResults from "./ApiTestResults";
 import GithubTraffic from "./GithubTraffic";
+import CICDpiepline from "./CICDDashboard";
 
 function TestDashboard() {
   const [currentTab, setCurrentTab] = React.useState("integration");
@@ -111,6 +112,19 @@ function TestDashboard() {
           >
             <Typography>GitHub Traffic</Typography>
           </Box>
+          <Box
+            sx={{ cursor: "pointer" }}
+            height="100%"
+            width="15%"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            color={getTabStyle("cicdPipeline").color}
+            backgroundColor={getTabStyle("cicdPipeline").backgroundColor}
+            onClick={() => setCurrentTab("cicdPipeline")}
+          >
+            <Typography>CICD Pipeline </Typography>
+          </Box>
         </Box>
       </Box>
       {currentTab === "integration" ? (
@@ -119,9 +133,11 @@ function TestDashboard() {
         <SeleniumTestResults />
       ) : currentTab === "apiDoc" ? (
         <ApiTestResults />
-      ) : (
+      ) : currentTab === "githubTraffic" ? (
         <GithubTraffic />
-      )}
+      ): (
+        <CICDpiepline />
+      ) }
     </div>
   );
 }
