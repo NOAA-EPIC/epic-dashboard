@@ -123,7 +123,7 @@ function TestDashboard() {
             backgroundColor={getTabStyle("cicdPipeline").backgroundColor}
             onClick={() => setCurrentTab("cicdPipeline")}
           >
-            <Typography>CICD Pipeline </Typography>
+            <Typography>Jenkins Artifacts</Typography>
           </Box>
         </Box>
       </Box>

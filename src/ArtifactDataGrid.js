@@ -44,7 +44,14 @@ const ArtifactsCellRenderer = ({ value }) => {
         </select>
       </div>
       {isArtifactSelected && (
-        <button onClick={openArtifactLink} style={{ marginLeft: "10px" }}>
+        <button
+          onClick={openArtifactLink}
+          style={{
+            marginLeft: "10px",
+            backgroundColor: "#ffffff",
+            color: "#000000", 
+          }}
+        >
           Open
         </button>
       )}
