@@ -122,7 +122,7 @@ https://github.com/ufs-community/CATChem
 " | grep -v "^#" > repos.txt
 
 if [[ ${REPOSITORY} == all ]] ; then
-    [[ -e repos.txt ]] && projects=$(grep -v "^#" repos.txt) || projects=$(curl ${CURL_PROXY} ${curl_opt} -o- "https://api.github.com/orgs/${ORG}/repos" | jq -r '.[].full_name' | tr -d '\r')
+    [[ -e repos.txt ]] && projects=$(grep -v "^#" repos.txt) || projects=$(curl ${CURL_PROXY} ${curl_opt} -o- "${GITHUB_API}/orgs/${ORG}/repos" | jq -r '.[].full_name' | tr -d '\r')
 else
     projects=${REPOSITORY}
 fi
