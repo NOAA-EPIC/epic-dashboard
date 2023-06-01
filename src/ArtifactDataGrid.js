@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { DataGrid, GridCellParams } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
@@ -11,7 +11,6 @@ const useStyles = makeStyles({
   }
 });
 
-// Custom Cell Renderer component
 const ArtifactsCellRenderer = ({ value }) => {
   const [selectedArtifact, setSelectedArtifact] = useState("");
 
@@ -59,7 +58,6 @@ const ArtifactsCellRenderer = ({ value }) => {
   );
 };
 
-// Define columns
 const columns = [
   { field: "Title", headerName: "Title", width: 100 },
   { field: "State", headerName: "State", width: 100 },
@@ -71,7 +69,7 @@ const columns = [
     width: 175,
     valueFormatter: (params) => {
       const timestamp = params.value;
-      const withoutMicroseconds = timestamp.split(".")[0]; // Remove microseconds
+      const withoutMicroseconds = timestamp.split(".")[0]; 
       return withoutMicroseconds;
     },
   },
@@ -84,7 +82,7 @@ const columns = [
 ];
 
 const ArtifactDataGrid = ({ endpoints }) => {
-  const classes = useStyles(); // Use the makeStyles hook to get the custom styles
+  const classes = useStyles(); 
   const [data, setData] = useState([]);
 
   useEffect(() => {

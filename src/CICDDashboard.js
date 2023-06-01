@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import ArtifactDataGrid from "./ArtifactDataGrid";
 import "./App.css";
 
+
 const artifact_data_endpoint = [
-  "https://github-repos-traffic.s3.amazonaws.com/ufs-srweather-app-dashboard-1.json"
+  "https://noaa-epic-prod-jenkins-public-react.s3.amazonaws.com/ufs-srweather-app-dashboard.json",
 ];
 
 function removeDashboard(title) {
