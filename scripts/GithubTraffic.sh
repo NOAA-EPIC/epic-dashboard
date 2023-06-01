@@ -50,7 +50,7 @@ function commits() {
                 git -C ${PIPELINE_PROJECT} log --pretty='format:{ "name":"%aN","email":"%aE","date":"NONE" }' --since="$SINCE" --until="$UNTIL"
         else
                 echo "# curl ${CURL_PROXY} ${curl_opt} -o- ${GITHUB_API}/repos/${ORG}/${PIPELINE_PROJECT}/commits?since=$SINCE&until=$UNTIL&page=1&per_page=$commit_records" >&2
-                json=$(curl ${CURL_PROXY} ${curl_opt} -o- "${GITHUB_API}/repos/${ORG}/${PIPELINE_PROJECT}/commits?since=$SINCE&until=$UNTIL&page=1&per_page=$commit_records" | tee json.txt)
+                json=$(curl ${CURL_PROXY} ${curl_opt} -o- "${GITHUB_API}/repos/${ORG}/${PIPELINE_PROJECT}/commits?since=$SINCE&until=$UNTIL&page=1&per_page=$commit_records")
                 message=$(echo "$json" | jq -r '.message' 2>/dev/null)
                 [[ -n $message ]] && echo "#NOTE: $message" >&2 || echo "$json" | jq -c '.[].commit|.author | .date = "NONE"'
         fi
@@ -59,6 +59,7 @@ function commits() {
 function commits2json() {
         local PIPELINE_PROJECT="$1"
         local PIPELINE_BRANCH="$2"
+        [[ -n ${WORKSPACE} ]] || WORKSPACE="."
         echo -en "{\n"
         echo -en "\"date\": \"$(date  +'%F %H:%M:%S %z')\",\n"
         echo -en "\"project\": \"${ORG}/${PIPELINE_PROJECT}\",\n"
@@ -68,7 +69,7 @@ function commits2json() {
         echo -en "\"activity\": "
         echo -en "[\n"
         first=true
-        commits ${PIPELINE_PROJECT} | tee ${PIPELINE_PROJECT}-commits.json | sort | uniq -c | sort -r | \
+        commits ${PIPELINE_PROJECT} | tee ${WORKSPACE}/${PIPELINE_PROJECT}-commits.json | sort | uniq -c | sort -r | \
         while read line ; do
                 [[ $first == true ]] && first=false || echo ","
                 n_commits=$(echo "$line" | cut -d' ' -f1) ;
@@ -84,8 +85,6 @@ echo "" >&2
 echo "PATH=${PATH}" >&2
 echo "WORKSPACE=${WORKSPACE}" >&2
 
-(
-cd ${WORKSPACE}
 pwd
 
 echo "" >&2
@@ -93,11 +92,6 @@ echo "REPOSITORY='${REPOSITORY}'" >&2
 echo "SINCE='${SINCE}'" >&2
 echo "UNTIL='${UNTIL}'" >&2
 echo "VERIFY='${VERIFY}'" >&2
-
-# start clean
-rm -f *.json
-rm -f repo_files.txt latest.txt
-rm -f *.csv *.tsv, *.html
 
 # All valid repos ... comment lines ('#') are excluded
 echo "
@@ -127,6 +121,10 @@ else
     projects=${REPOSITORY}
 fi
 
+# start clean
+rm -f ${WORKSPACE}/latest.txt
+rm -f ${WORKSPACE}/repo_files.txt
+
 cols='".commits",".name",".email"'
 jcols=$(echo "$cols" | tr -d '"')
 tcols=$(echo "$cols" | tr -d '.')
@@ -134,35 +132,36 @@ tcols=$(echo "$cols" | tr -d '.')
 for project in $(echo $projects) ; do
         PROJECT=$(basename $project .json)
         echo "${ORG}:${PROJECT} ${SINCE} ${UNTIL}" >&2
-        [[ -e ${PROJECT}/.git/config ]] && ls -ald ${PROJECT}/.git/config #|| continue
-        [[ -d ${PROJECT}/.git/ ]] && BRANCH=$(git -C ${PROJECT} rev-parse --abbrev-ref HEAD) || BRANCH=default
-        [[ -s ${PROJECT}-commits.json ]] || commits2json ${PROJECT} ${BRANCH} | tee ${PROJECT}.json
-        [[ -s ${PROJECT}.json ]] && echo "${S3_PROD_SITE}/jobs/${JOB_NAME}/${BUILD_NUMBER}/${PROJECT}.json" | tee -a repo_files.txt >&2
-        [[ -s ${PROJECT}.json ]] && echo -e "\n# Show as a TSV table ..." >&2 \
-            && jq -r "[$tcols], [\"-------\",\"--------------\",\"--------------\"], (.activity[] | [$jcols]) | @tsv" ${PROJECT}.json | column -ts $'\t' ;
+        [[ -e ${WORKSPACE}/${PROJECT}/.git/config ]] && ls -ald ${WORKSPACE}/${PROJECT}/.git/config #|| continue
+        [[ -d ${WORKSPACE}/${PROJECT}/.git/ ]] && BRANCH=$(git -C ${WORKSPACE}/${PROJECT} rev-parse --abbrev-ref HEAD) || BRANCH=default
+        [[ -s ${WORKSPACE}/${PROJECT}-commits.json ]] || commits2json ${PROJECT} ${BRANCH} | tee ${WORKSPACE}/${PROJECT}.json
+        [[ -s ${WORKSPACE}/${PROJECT}.json ]] && echo "${S3_PROD_SITE}/jobs/${JOB_NAME}/${BUILD_NUMBER}/${PROJECT}.json" | tee -a ${WORKSPACE}/repo_files.txt >&2
+        [[ -s ${WORKSPACE}/${PROJECT}.json ]] && echo -e "\n# Show as a TSV table ..." >&2 \
+            && jq -r "[$tcols], [\"-------\",\"--------------\",\"--------------\"], (.activity[] | [$jcols]) | @tsv" ${WORKSPACE}/${PROJECT}.json | column -ts $'\t' ;
 done
 
 status=${PIPESTATUS[0]}
 
 echo -e "\n#### status=$status \n# NEXT: publish these JSON files as web pages ..."
-if [[ -s repo_files.txt ]] ; then
-    cp repo_files.txt latest.txt
+if [[ -s ${WORKSPACE}/repo_files.txt ]] ; then
+    cp ${WORKSPACE}/repo_files.txt ${WORKSPACE}/latest.txt
     echo -e "${S3_PROD_SITE}/jobs/${JOB_NAME}/latest.txt"
     echo -e ""
-    cat latest.txt
+    cat ${WORKSPACE}/latest.txt
 else
-    rm -f latest.txt
+    rm -f ${WORKSPACE}/latest.txt
     echo -e "${S3_PROD_SITE}/jobs/${JOB_NAME}/${BUILD_NUMBER}/ufs-srweather-app.json"
 fi
     
 # Verify json with HTML from csv data and headers ...
 function json2html() {
     local PIPELINE_PROJECT=$(basename $1 .json)
+    [[ -n ${WORKSPACE} ]] || WORKSPACE="."
     cols='".commits",".name",".email"'
     jcols=$(echo "$cols" | tr -d '"')
 
     function json2csv() {
-        jq -r "(.activity[] | [$jcols]) | @csv" ${PIPELINE_PROJECT}.json | column -ts $'\t'
+        jq -r "(.activity[] | [$jcols]) | @csv" ${WORKSPACE}/${PIPELINE_PROJECT}.json | column -ts $'\t'
     }
     
     function csv2table() { # global data="<CSV data>"
@@ -188,14 +187,14 @@ function json2html() {
     }
 
     echo -e "\n# Generate a CSV ..." >&2
-    json2csv | tee ${PIPELINE_PROJECT}.csv >/dev/null #>&2
+    json2csv | tee ${WORKSPACE}/${PIPELINE_PROJECT}.csv >/dev/null #>&2
 
     echo -e "\n# Generate an HTML table ..." >&2
-    caption=$(jq -c '[.project,.branch,.since,.until]' ${PIPELINE_PROJECT}.json | tr '"' ' ' )
+    caption=$(jq -c '[.project,.branch,.since,.until]' ${WORKSPACE}/${PIPELINE_PROJECT}.json | tr '"' ' ' )
     echo -e "# caption=$caption" >&2
     headers=$(echo "$cols" | tr -d '."')
     echo "# headers='$headers'" >&2
-    data=$(cat ${PIPELINE_PROJECT}.csv)
+    data=$(cat ${WORKSPACE}/${PIPELINE_PROJECT}.csv)
 
     echo -e "<HTML>\n<BODY>\n"
     csv2table "$caption" "$headers"
@@ -204,9 +203,8 @@ function json2html() {
 
 [[ true == ${VERIFY} ]] && for project in $(echo $projects) ; do
         PROJECT=$(basename $project .json)
-        [[ -s ${PROJECT}.json ]] && json2html ${PROJECT}.json > ${PROJECT}.html
-        [[ -s ${PROJECT}.html ]] && echo "${S3_PROD_SITE}/jobs/${JOB_NAME}/${BUILD_NUMBER}/${PROJECT}.html" >&2
+        [[ -s ${WORKSPACE}/${PROJECT}.json ]] && json2html ${WORKSPACE}/${PROJECT}.json > ${WORKSPACE}/${PROJECT}.html
+        [[ -s ${WORKSPACE}/${PROJECT}.html ]] && echo "${S3_PROD_SITE}/jobs/${JOB_NAME}/${BUILD_NUMBER}/${PROJECT}.html" >&2
 done
 
-exit $status ;
-)
+exit $status
