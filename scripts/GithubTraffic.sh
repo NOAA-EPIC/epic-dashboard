@@ -98,8 +98,7 @@ rm -f ${WORKSPACE}/latest.txt
 rm -f ${WORKSPACE}/repo_files.txt
 
 # All valid repos ... comment lines ('#') are excluded
-echo "
-#https://github.com/ufs-community/regional_workflow
+echo "#https://github.com/ufs-community/regional_workflow
 https://github.com/ufs-community/UFS_UTILS
 #https://github.com/ufs-community/ufs
 https://github.com/ufs-community/ufs-weather-model
