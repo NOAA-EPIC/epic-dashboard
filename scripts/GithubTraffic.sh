@@ -10,7 +10,7 @@ function usage() {
 
 ##### Global Configuration #####
 GITHUB_API="https://api.github.com"
-[[ -n ${S4_PROD_SITE} ]] || S3_PROD_SITE="."
+[[ -n ${S3_PROD_SITE} ]] || S3_PROD_SITE="."
 
 ##### Calling Environment #####
 #CURL_PROXY="-x proxy.ext.ray.com:80"
