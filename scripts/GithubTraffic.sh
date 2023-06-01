@@ -93,6 +93,10 @@ echo "SINCE='${SINCE}'" >&2
 echo "UNTIL='${UNTIL}'" >&2
 echo "VERIFY='${VERIFY}'" >&2
 
+# start clean
+rm -f ${WORKSPACE}/latest.txt
+rm -f ${WORKSPACE}/repo_files.txt
+
 # All valid repos ... comment lines ('#') are excluded
 echo "
 #https://github.com/ufs-community/regional_workflow
@@ -113,17 +117,13 @@ https://github.com/ufs-community/ccpp-physics
 https://github.com/ufs-community/land-DA_workflow
 https://github.com/ufs-community/land-DA
 https://github.com/ufs-community/CATChem
-" | grep -v "^#" > repos.txt
+" | grep -v "^#" > ${WORKSPACE}/repo_urls.txt
 
 if [[ ${REPOSITORY} == all ]] ; then
-    [[ -e repos.txt ]] && projects=$(grep -v "^#" repos.txt) || projects=$(curl ${CURL_PROXY} ${curl_opt} -o- "${GITHUB_API}/orgs/${ORG}/repos" | jq -r '.[].full_name' | tr -d '\r')
+    [[ -e ${WORKSPACE}/repo_urls.txt ]] && projects=$(grep -v "^#" ${WORKSPACE}/repo_urls.txt) || projects=$(curl ${CURL_PROXY} ${curl_opt} -o- "${GITHUB_API}/orgs/${ORG}/repos" | jq -r '.[].full_name' | tr -d '\r')
 else
     projects=${REPOSITORY}
 fi
-
-# start clean
-rm -f ${WORKSPACE}/latest.txt
-rm -f ${WORKSPACE}/repo_files.txt
 
 cols='".commits",".name",".email"'
 jcols=$(echo "$cols" | tr -d '"')
