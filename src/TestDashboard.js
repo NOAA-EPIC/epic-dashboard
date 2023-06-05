@@ -3,6 +3,7 @@ import { Typography, Box } from "@mui/material";
 import IntegrationTestResults from "./IntegrationTestResults";
 import SeleniumTestResults from "./SeleniumTestResults";
 import ApiTestResults from "./ApiTestResults";
+import GithubTraffic from "./GithubTraffic";
 
 function TestDashboard() {
   const [currentTab, setCurrentTab] = React.useState("integration");
@@ -97,16 +98,32 @@ function TestDashboard() {
           >
             <Typography>GitHub Discussions</Typography>
           </Box>
+          <Box
+            sx={{ cursor: "pointer" }}
+            height="100%"
+            width="15%"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            color={getTabStyle("githubTraffic").color}
+            backgroundColor={getTabStyle("githubTraffic").backgroundColor}
+            onClick={() => setCurrentTab("githubTraffic")}
+          >
+            <Typography>GitHub Traffic</Typography>
+          </Box>
         </Box>
       </Box>
       {currentTab === "integration" ? (
         <IntegrationTestResults />
       ) : currentTab === "selenium" ? (
         <SeleniumTestResults />
-      ) : (
+      ) : currentTab === "apiDoc" ? (
         <ApiTestResults />
+      ) : (
+        <GithubTraffic />
       )}
     </div>
   );
 }
+
 export default TestDashboard;
