@@ -29,7 +29,7 @@ function ApiTestResults() {
         </div>
         <div>
           <h1>Issues</h1>
-          <p>IIncludes: ufs-srweather-app, ufs-weather-model, UPP, land-DA_workflow, and NOAA-EPIC/land-offline_workflow</p>
+          <p>Includes: ufs-srweather-app, ufs-weather-model, UPP, land-DA_workflow, and NOAA-EPIC/land-offline_workflow</p>
           <ItemDataGrid endpoints={issueEndpoints} />
         </div>
       </div>

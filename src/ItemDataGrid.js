@@ -12,11 +12,12 @@ const useStyles = makeStyles({
 const columns = [
     { field: "repository", headerName: "Repository", width: 170 },
     { field: "index", headerName: "GitHub Id", width: 100 },
-    { field: "post_type", headerName: "Post Type", width: 150 },
-    { field: "iso_date_time", headerName: "Date Created", width: 200 },
+    { field: "iso_date_time", headerName: "Date Created", width: 170 },
     { field: "initial_answer", headerName: "Initial Answer?", width: 100},
     { field: "github_url", headerName: "Github URL", width: 500, renderCell: (params) => 
         <a href={params.row.github_url}>{params.row.github_url}</a> },
+    { field: "last_comment_date_time", headerName: "Last Comment", width: 170 },
+    { field: "author", headerName: "Author", width: 150 }
   ];
   
 const ItemDataGrid = ({ endpoints }) => {
