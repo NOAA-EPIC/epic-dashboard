@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function usage() {
-    echo -e "Usage:\n[REPOSITORY=http://gitgub.com/<org>/<project> | REPOSITORY=all] [SINCE_DATE='<date string'] [VERIFY=true] ./$(basename $0)\n"
+    echo -e "Usage:\n[REPOSITORY=http://github.com/<org>/<project> | REPOSITORY=all] [SINCE_DATE='<date string'] [VERIFY=true] ./$(basename $0)\n"
 }
 
 [[ -n ${JOB_NAME} ]] || JOB_NAME="infrastructure/dashboard-contributors"
