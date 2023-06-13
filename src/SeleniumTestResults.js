@@ -8,6 +8,7 @@ import {
   AccordionDetails,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 function SeleniumTestResults() {
   const [testResults, setTestResults] = React.useState({});
 
@@ -27,17 +28,15 @@ function SeleniumTestResults() {
     fetch(
       "https://epic-sandbox-srw.s3.amazonaws.com/selenium-data.json",
       { headers: fetchHeaders }
-    ).then((res) => res.json().then((data) => setTestResults(data)));
+    )
+      .then((res) => res.json())
+      .then((data) => setTestResults(data));
   }, []); //eslint-disable-line
 
   let resultsBody;
-  let testSuites = [];
-  let overallStatus;
 
   if (Object.keys(testResults).length > 0) {
     resultsBody = testResults.body;
-    testSuites = Object.keys(resultsBody);
-    overallStatus = testResults.statusCode;
 
     if (resultsBody) {
       return (
@@ -58,80 +57,64 @@ function SeleniumTestResults() {
                   Latest Run: {testResults.time_ran}
                 </Typography>
               </Box>
-              <Box
-                padding="5px"
-                border="1px solid black"
-                backgroundColor={
-                  overallStatus === 200 ? "lightgreen" : "lightpink"
-                }
-              >
-                <Typography fontWeight="bold" fontSize="18px">
-                  Overall EPIC Selenium Test Status:{" "}
-                  {overallStatus === 200 ? "Success" : "Failure"}
-                </Typography>
-              </Box>
             </Box>
-            {testSuites.map((testSuite) => {
-              return (
-                <Accordion
-                  defaultExpanded
-                  sx={{ width: "100%", backgroundColor: "lightGray" }}
+            {Object.entries(resultsBody).map(([section, sectionData]) => (
+              <Accordion
+                key={section}
+                defaultExpanded
+                sx={{ width: "100%", backgroundColor: "lightGray" }}
+              >
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>{section}</Typography>
+                </AccordionSummary>
+                <AccordionDetails
+                  sx={{ padding: "0px", backgroundColor: "white" }}
                 >
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>{testSuite}</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails
-                    sx={{ padding: "0px", backgroundColor: "white" }}
-                  >
-                    <Box display="flex" flexDirection="column" gap="10px">
-                      {resultsBody[testSuite] &&
-                      typeof resultsBody[testSuite].result_list === "object" ? (
-                        resultsBody[testSuite].result_list.map((testResult) => {
-                          return (
-                            <Box
-                              display="flex"
-                              alignItems="center"
-                              minHeight="50px"
-                              border="1px solid black"
-                              style={{
-                                backgroundColor: getRowColor(testResult),
-                              }}
-                            >
-                              <Typography sx={{ padding: "10px" }}>
-                                {testResult}
-                              </Typography>
-                            </Box>
-                          );
-                        })
-                      ) : resultsBody[testSuite] &&
-                        typeof resultsBody[testSuite].result_list ===
-                          "string" ? (
+                  <Box display="flex" flexDirection="column" gap="10px">
+                    {Array.isArray(sectionData) ? (
+                      sectionData.map((item, index) => (
                         <Box
+                          key={index}
                           display="flex"
                           alignItems="center"
                           minHeight="50px"
                           border="1px solid black"
                           style={{
-                            backgroundColor: getRowColor(
-                              resultsBody[testSuite].result_list
-                            ),
+                            backgroundColor: getRowColor(item),
                           }}
                         >
                           <Typography sx={{ padding: "10px" }}>
-                            {resultsBody[testSuite].result_list}
+                            {item}
                           </Typography>
                         </Box>
-                      ) : null}
-                    </Box>
-                  </AccordionDetails>
-                </Accordion>
-              );
-            })}
+                      ))
+                    ) : (
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                        minHeight="50px"
+                        border="1px solid black"
+                        style={{
+                          backgroundColor: getRowColor(sectionData),
+                        }}
+                      >
+                        <Typography sx={{ padding: "10px" }}>
+                          {sectionData}
+                        </Typography>
+                      </Box>
+                    )}
+                  </Box>
+                </AccordionDetails>
+              </Accordion>
+            ))}
           </ResultsBox>
         </ResultsBoxWrapper>
       );
     }
   }
+
+  return null; // Return null if testResults is empty or not yet populated
 }
 
 export default SeleniumTestResults;
+
