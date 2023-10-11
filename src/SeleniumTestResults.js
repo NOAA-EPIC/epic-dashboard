@@ -13,7 +13,7 @@ function SeleniumTestResults() {
   const [testResults, setTestResults] = React.useState({});
 
   const getRowColor = (testResult) => {
-    if (!testResult.toLowerCase().includes("error")) {
+    if (!testResult.toLowerCase().includes("failed")) {
       return "lightgreen";
     } else {
       return "lightpink";
@@ -26,7 +26,7 @@ function SeleniumTestResults() {
 
   React.useEffect(() => {
     fetch(
-      "https://epic-sandbox-srw.s3.amazonaws.com/selenium-data.json",
+      "https://sandbox-epic.s3.amazonaws.com/selenium-data.json",
       { headers: fetchHeaders }
     )
       .then((res) => res.json())
