@@ -3,19 +3,19 @@ import ItemDataGrid from "./ItemDataGrid";
 import "./App.css";
 
 const discussionEndpoints = [
-  'https://sandbox-epic.s3.amazonaws.com/discussions-NOAA-EMC-UPP.json',
-  'https://sandbox-epic.s3.amazonaws.com/discussions-NOAA-EPIC-land-offline_workflow.json',
-  'https://sandbox-epic.s3.amazonaws.com/discussions-ufs-community-land-DA_workflow.json',
-  'https://sandbox-epic.s3.amazonaws.com/discussions-ufs-community-ufs-srweather-app.json',
-  'https://sandbox-epic.s3.amazonaws.com/discussions-ufs-community-ufs-weather-model.json'
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/discussions-NOAA-EMC-UPP.json',
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/discussions-NOAA-EPIC-land-offline_workflow.json',
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/discussions-ufs-community-land-DA_workflow.json',
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/discussions-ufs-community-ufs-srweather-app.json',
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/discussions-ufs-community-ufs-weather-model.json'
 ];
 
 const issueEndpoints = [
-  'https://sandbox-epic.s3.amazonaws.com/issues-NOAA-EMC-UPP.json',
-  'https://sandbox-epic.s3.amazonaws.com/issues-NOAA-EPIC-land-offline_workflow.json',
-  'https://sandbox-epic.s3.amazonaws.com/issues-ufs-community-land-DA_workflow.json',
-  'https://sandbox-epic.s3.amazonaws.com/issues-ufs-community-ufs-srweather-app.json',
-  'https://sandbox-epic.s3.amazonaws.com/issues-ufs-community-ufs-weather-model.json'
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-NOAA-EMC-UPP.json',
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-NOAA-EPIC-land-offline_workflow.json',
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-ufs-community-land-DA_workflow.json',
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-ufs-community-ufs-srweather-app.json',
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-ufs-community-ufs-weather-model.json'
 ];
 
 function ApiTestResults() {

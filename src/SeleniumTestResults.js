@@ -26,7 +26,7 @@ function SeleniumTestResults() {
 
   React.useEffect(() => {
     fetch(
-      "https://sandbox-epic.s3.amazonaws.com/selenium-data.json",
+      "https://epic-health-dashboard-artifacts.s3.amazonaws.com/selenium-data.json",
       { headers: fetchHeaders }
     )
       .then((res) => res.json())
