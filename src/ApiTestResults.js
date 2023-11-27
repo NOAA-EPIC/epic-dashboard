@@ -25,13 +25,13 @@ function ApiTestResults() {
       <div style={{ padding: 30 }}>
         <div>
           <h1>Discussions</h1>
-          <p>Includes: ufs-srweather-app, ufs-weather-model, UPP, land-DA_workflow, and NOAA-EPIC/land-offline_workflow</p>
+          <p>Includes: ufs-srweather-app, ufs-weather-model, UPP, land-DA_workflow, HAFS, and NOAA-EPIC/land-offline_workflow</p>
           <p><a href="https://github.com/orgs/ufs-community/discussions">UFS Community Discussions</a></p>
           <ItemDataGrid endpoints={discussionEndpoints} />
         </div>
         <div>
           <h1>Issues</h1>
-          <p>Includes: ufs-srweather-app, ufs-weather-model, UPP, land-DA_workflow, and NOAA-EPIC/land-offline_workflow</p>
+          <p>Includes: ufs-srweather-app, ufs-weather-model, UPP, land-DA_workflow, HAFS, and NOAA-EPIC/land-offline_workflow</p>
           <ItemDataGrid endpoints={issueEndpoints} />
         </div>
       </div>
