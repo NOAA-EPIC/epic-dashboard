@@ -1,13 +1,13 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
-import IntegrationTestResults from "./IntegrationTestResults";
+import AllocationReport from "./AllocationReport";
 import SeleniumTestResults from "./SeleniumTestResults";
 import ApiTestResults from "./ApiTestResults";
 import GithubTraffic from "./GithubTraffic";
 import CICDpiepline from "./CICDDashboard";
 
 function TestDashboard() {
-  const [currentTab, setCurrentTab] = React.useState("integration");
+  const [currentTab, setCurrentTab] = React.useState("allocation");
 
   const getTabStyle = (tab) => {
     let tabStyle = {
@@ -66,12 +66,12 @@ function TestDashboard() {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            color={getTabStyle("integration").color}
-            backgroundColor={getTabStyle("integration").backgroundColor}
-            border={getTabStyle("integration").border}
-            onClick={() => setCurrentTab("integration")}
+            color={getTabStyle("allocation").color}
+            backgroundColor={getTabStyle("allocation").backgroundColor}
+            border={getTabStyle("allocation").border}
+            onClick={() => setCurrentTab("allocation")}
           >
-            <Typography>Integration Test Results</Typography>
+            <Typography>EPIC Allocation</Typography>
           </Box>
           <Box
             sx={{ cursor: "pointer" }}
@@ -127,8 +127,8 @@ function TestDashboard() {
           </Box>
         </Box>
       </Box>
-      {currentTab === "integration" ? (
-        <IntegrationTestResults />
+      {currentTab === "allocation" ? (
+        <AllocationReport />
       ) : currentTab === "selenium" ? (
         <SeleniumTestResults />
       ) : currentTab === "apiDoc" ? (
