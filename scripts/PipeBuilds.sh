@@ -82,6 +82,7 @@ function jenkinsBuilds() {
         ci_builds=$(for job in $ci_jobs ; do jenkinsAPI $(echo $job) | jq -r '.builds[].url'; done)
 
         rm -f ${WORKSPACE}/${PIPELINE_PROJECT}-buildartifacts.txt
+        touch ${WORKSPACE}/${PIPELINE_PROJECT}-buildartifacts.txt
         echo -e "{\n \"builds\" : ["
         first=true
         for build in $ci_builds ; do
@@ -102,6 +103,7 @@ function blueNodes() {
         local ci_builds=$(jenkinsBlueREST | jq -r '.[]._links.self.href' | tr -d '\r' | egrep "$subset")
 
         rm -f ${WORKSPACE}/${PIPELINE_PROJECT}-blueartifacts.txt
+        touch ${WORKSPACE}/${PIPELINE_PROJECT}-blueartifacts.txt
         echo -e "{\n \"builds\":["
         firstbuild=true
         for build in $ci_builds ; do
@@ -203,6 +205,8 @@ if [[ -s ${WORKSPACE}/${PIPELINE_PROJECT}-bluenodes.json ]] ; then
     cat ${WORKSPACE}/${PIPELINE_PROJECT}-latest.txt && echo -e "\n${S3_PROD_SITE}/jobs/${JOB_NAME}/${PIPELINE_PROJECT}-latest.txt\n"
 else
     rm -f ${WORKSPACE}/${PIPELINE_PROJECT}-latest.txt
+    rm -f ${WORKSPACE}/${PIPELINE_PROJECT}-blueartifacts.txt
+    rm -f ${WORKSPACE}/${PIPELINE_PROJECT}-blueresults.txt
 fi
 
 [[ $VERIFY == true ]] || exit $status
