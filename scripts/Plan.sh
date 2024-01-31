@@ -1,4 +1,6 @@
-#!bash
+#!/bin/bash
+API_CONTENT_PATH="$1"
+format="$2"
 echo "API_CONTENT_PATH=${API_CONTENT_PATH}"
 [[ -n ${API_CONTENT_PATH} ]] || exit 1
 
@@ -173,7 +175,7 @@ echo ""
 if [[ ${API_CONTENT_PATH} =~ issue/ ]] ; then
   [[ -n ${issueKey} ]] && [[ ! -f issue.${issueKey}.json ]] && echo "${JIRA_SITE}/rest/${API_VERSION}/issue/${issueKey}" \
     && getIssue ${issueKey} | tee issue+${issueKey}.json > /dev/null
-  [[ -n ${issueKey} ]] && printIssue "${IssueKey}" ${format} | tee issue+${issueKey}.txt
+  [[ -n ${issueKey} ]] && printIssue "${issueKey}" ${format} | tee issue+${issueKey}.txt
 fi
 
 if [[ ${API_CONTENT_PATH} =~ project/ ]] ; then
