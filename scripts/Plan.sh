@@ -3,6 +3,7 @@ API_CONTENT_PATH="$1"
 format="$2"
 echo "API_CONTENT_PATH=${API_CONTENT_PATH}"
 [[ -n ${API_CONTENT_PATH} ]] || exit 1
+export API_VERSION=api/2
 
 # Requirements:
 # API_TOKEN="your.Jira.personal.access.token"
@@ -12,8 +13,6 @@ echo "API_CONTENT_PATH=${API_CONTENT_PATH}"
 
 #export JIRA_SITE="https://your.jira.site"
 #export CURL_PROXY="-x your.proxy.host:port"
-export API_VERSION=api/2
-#format="-tsv"
 
 (
 set -x
@@ -35,6 +34,7 @@ function jiraAPI() {
 }
 
 function getProjectKeys() {
+    local API_VERSION=api/2
     [[ -f projects.json ]] && jq -r '.[]|(.key)' projects.json | tr '\n' ' ' | tr -d '\r' \
         || jiraAPI "rest/${API_VERSION}/project" 2>/dev/null | jq -r '.' | tee projects.json | jq -r '.[]|(.key)'
 }
@@ -192,3 +192,5 @@ if [[ ${API_CONTENT_PATH} =~ childOf/  ]] ; then
     echo "${JIRA_SITE}/rest/${API_VERSION}/${API_QUERY}"
     getChildIssuesOf ${issueKey} | tee childOf+${issueKey}.json #> /dev/null
 fi
+
+echo "status=$?"
