@@ -66,7 +66,7 @@ function s3artifacts() {
 
         jenkinsAPI ${URL} ${FORM} \
                 | tr -d '"' \
-                | sed 's|<td><a href=|=|g' | sed 's|</a></td>|\n|g' \
+                | sed 's|<a href=|\n=|g' | sed 's|</a></td>|\n|g' \
                 | cut -d= -f2 | cut -d\> -f1 \
                 | grep 'download/' | sed "s|download/|${DOWNLOAD}/|g" \
                 | sed 's|pipeline/view/change-requests|pipeline|g' \
