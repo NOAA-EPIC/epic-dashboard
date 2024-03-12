@@ -50,8 +50,8 @@ import "./App.css";
 
 const artifact_data_endpoints = [
   "https://noaa-epic-prod-jenkins-public-react.s3.amazonaws.com/ufs-srweather-app-dashboard.json",
-  "https://noaa-epic-prod-jenkins-public-react.s3.amazonaws.com/ufs-srweather-app-dashboard.json", 
-  "https://noaa-epic-prod-jenkins-public-react.s3.amazonaws.com/ufs-srweather-app-dashboard.json",
+  "https://noaa-epic-prod-jenkins-public-react.s3.amazonaws.com/ufs-weather-model-dashboard.json", 
+  "https://noaa-epic-prod-jenkins-public-react.s3.amazonaws.com/land-DA_workflow-dashboard.json",
 ];
 
 function removeDashboard(title) {
