@@ -6,14 +6,6 @@ import { Box } from "@mui/material";
 function App() {
   return (
     <React.Fragment>
-      <Box
-        display="flex"
-        justifyContent="center"
-        width="100%"
-        sx={{ color: "white", backgroundColor: "green" }}
-      >
-        Unclassified
-      </Box>
       <TestDashboard />
     </React.Fragment>
   );

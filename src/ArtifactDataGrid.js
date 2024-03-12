@@ -8,6 +8,9 @@ const useStyles = makeStyles({
   },
   green: {
     background: "#81C784"
+  },
+  grey: {
+    background: "#A9A9A9"
   }
 });
 
@@ -113,6 +116,8 @@ const ArtifactDataGrid = ({ endpoints }) => {
       return classes.red;
     } else if (result === "SUCCESS") {
       return classes.green;
+    } else if (result === "ABORTED") {
+      return classes.grey;
     } else {
       return "";
     }
