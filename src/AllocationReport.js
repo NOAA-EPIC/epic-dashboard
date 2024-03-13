@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+
 const HTMLLoader = ({ url }) => {
   const [htmlContent, setHtmlContent] = useState(null);
 
@@ -15,8 +16,8 @@ const HTMLLoader = ({ url }) => {
     };
 
     loadHTML();
-  }, [url]); // Include url in the dependency array
-
+  }, [url]);
+  
   return (
     <div>
       {htmlContent && (
