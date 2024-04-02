@@ -21,21 +21,23 @@ const issueEndpoints =  [
 ];
 
 function ApiTestResults() {
-    return (
-      <div style={{ padding: 30 }}>
-        <div>
-          <h1>Discussions</h1>
-          <p>Includes: ufs-srweather-app, ufs-weather-model, UPP, land-DA_workflow, HAFS, and NOAA-EPIC/land-offline_workflow</p>
-          <p><a href="https://github.com/orgs/ufs-community/discussions">UFS Community Discussions</a></p>
-          <ItemDataGrid endpoints={discussionEndpoints} />
-        </div>
-        <div>
-          <h1>Issues</h1>
-          <p>Includes: ufs-srweather-app, ufs-weather-model, UPP, land-DA_workflow, HAFS, and NOAA-EPIC/land-offline_workflow</p>
-          <ItemDataGrid endpoints={issueEndpoints} />
-        </div>
+  return (
+    <div style={{ padding: 30 }}>
+      <div>
+        <h1>Discussions</h1>
+        <p>Includes: ufs-srweather-app, ufs-weather-model, UPP, land-DA_workflow, HAFS, and NOAA-EPIC/land-offline_workflow</p>
+        <p><span style={{ color: 'green' }}>Green</span> indicates that the US team has replied most recently. <span style={{ color: 'red' }}>Red</span> indicates that there has been no initial reply to the author or that the author was the last to reply.</p>
+        <p><a href="https://github.com/orgs/ufs-community/discussions">UFS Community Discussions</a></p>
+        <ItemDataGrid endpoints={discussionEndpoints} />
       </div>
-    );
+      <div>
+        <h1>Issues</h1>
+        <p>Includes: ufs-srweather-app, ufs-weather-model, UPP, land-DA_workflow, HAFS, and NOAA-EPIC/land-offline_workflow</p>
+        <p><span style={{ color: 'red' }}>Red</span> indicates that there has been no initial reply to the author.</p>
+        <ItemDataGrid endpoints={issueEndpoints} />
+      </div>
+    </div>
+  );
 }
 
 export default ApiTestResults;
