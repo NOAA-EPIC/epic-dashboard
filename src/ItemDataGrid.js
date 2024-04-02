@@ -10,15 +10,17 @@ const useStyles = makeStyles({
 
 // Define columns for DataGrid
 const columns = [
-    { field: "repository", headerName: "Repository", width: 170 },
-    { field: "index", headerName: "GitHub Id", width: 100 },
-    { field: "title", headerName: "Title", width: 400 },
+    { field: "repository", headerName: "Repository", width: 150 },
+    { field: "index", headerName: "GitHub Id", width: 90 },
+    { field: "title", headerName: "Title", width: 300 },
     { field: "iso_date_time", headerName: "Date Created", width: 170 },
     { field: "initial_answer", headerName: "Initial Answer?", width: 100},
     { field: "github_url", headerName: "Github URL", width: 500, renderCell: (params) => 
         <a href={params.row.github_url}>{params.row.github_url}</a> },
+    { field: "author", headerName: "Author", width: 130 },
     { field: "last_comment_date_time", headerName: "Last Comment", width: 170 },
-    { field: "author", headerName: "Author", width: 150 }
+    { field: "last_commenter", headerName: "Last Comment Author", width: 150 }, 
+    
   ];
   
 const ItemDataGrid = ({ endpoints }) => {
