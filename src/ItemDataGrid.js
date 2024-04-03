@@ -12,6 +12,7 @@ const useStyles = makeStyles({
 const columns = [
     { field: "repository", headerName: "Repository", width: 170 },
     { field: "index", headerName: "GitHub Id", width: 100 },
+    { field: "title", headerName: "Title", width: 400 },
     { field: "iso_date_time", headerName: "Date Created", width: 170 },
     { field: "initial_answer", headerName: "Initial Answer?", width: 100},
     { field: "github_url", headerName: "Github URL", width: 500, renderCell: (params) => 

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import ArtifactDataGrid from "./ArtifactDataGrid";
 import "./App.css";
 
-
-const artifact_data_endpoint = [
+const artifact_data_endpoints = [
   "https://noaa-epic-prod-jenkins-public-react.s3.amazonaws.com/ufs-srweather-app-dashboard.json",
+  "https://noaa-epic-prod-jenkins-public-react.s3.amazonaws.com/ufs-weather-model-dashboard.json", 
+  "https://noaa-epic-prod-jenkins-public-react.s3.amazonaws.com/land-DA_workflow-dashboard.json",
 ];
 
 function removeDashboard(title) {
@@ -23,7 +24,7 @@ function CICDpiepline() {
       return projectName;
     };
 
-    const titles = artifact_data_endpoint.map((endpoint) =>
+    const titles = artifact_data_endpoints.map((endpoint) =>
       removeDashboard(extractProjectName(endpoint))
     );
     setTableTitles(titles);
@@ -31,10 +32,10 @@ function CICDpiepline() {
 
   return (
     <div style={{ padding: 30 }}>
-      {tableTitles.map((title, index) => (
+      {artifact_data_endpoints.map((endpoint, index) => (
         <div key={index}>
-          <h1>{title} Build History</h1>
-          <ArtifactDataGrid endpoints={[artifact_data_endpoint[index]]} />
+          <h1>{tableTitles[index]} CI/CD Artifacts</h1>
+          <ArtifactDataGrid endpoints={[endpoint]} />
         </div>
       ))}
     </div>
