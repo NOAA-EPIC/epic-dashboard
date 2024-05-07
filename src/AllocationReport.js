@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-
 const HTMLLoader = ({ url }) => {
   const [htmlContent, setHtmlContent] = useState(null);
 
@@ -28,11 +27,38 @@ const HTMLLoader = ({ url }) => {
 };
 
 const AllocationReport = () => {
-  const htmlUrl = 'https://noaa-epic-prod-jenkins-artifacts.s3.amazonaws.com/jobs/infrastructure/epic-account-info/report.html';
+  const [reportLinks, setReportLinks] = useState([]);
+
+  useEffect(() => {
+    const loadReportLinks = async () => {
+      try {
+        const response = await fetch('https://noaa-epic-prod-jenkins-public-react.s3.amazonaws.com/monthly-logs/log_list.json');
+        const data = await response.json();
+        setReportLinks(data);
+      } catch (error) {
+        console.error('Error loading report links:', error);
+      }
+    };
+
+    loadReportLinks();
+  }, []);
 
   return (
     <div>
-      <HTMLLoader url={htmlUrl} />
+      <HTMLLoader url={'https://noaa-epic-prod-jenkins-artifacts.s3.amazonaws.com/jobs/infrastructure/epic-account-info/report.html'} />
+      <div>
+        <h2>Previous Monthly Reports</h2>
+        <ul>
+          {reportLinks.map((link, index) => {
+            const fileName = link.substring(link.lastIndexOf('/') + 1);
+            return (
+              <li key={index}>
+                <a href={link} target="_blank" rel="noopener noreferrer">{fileName}</a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 };
