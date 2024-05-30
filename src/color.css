@@ -1,7 +1,15 @@
-.green-row {
-    background-color: green;
-  }
-  
-  .red-row {
-    background-color: red;
-  }
+.failureRow {
+  background-color: #ffebee; /* Very light red */
+}
+
+.abortedRow {
+  background-color: #fff3e0; /* Light orange */
+}
+
+.notBuiltRow {
+  background-color: #e8f5e9; /* Light green */
+}
+
+.successRow {
+  background-color: #f0f0f0; /* Slightly darker grey */
+}
