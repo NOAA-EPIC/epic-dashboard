@@ -24,14 +24,6 @@ const useStyles = makeStyles({
 });
 
 const WE2ETestsCellRenderer = ({ value }) => {
-  const parseTestString = (testString) => {
-    const parts = testString.split(" ");
-    const platform = parts[2].replace(/'/g, "");
-    const compiler = parts[5].replace(/'/g, "");
-    const result = parts[7];
-    return { platform, compiler, result };
-  };
-
   const getColor = (result) => {
     switch (result) {
       case "SUCCESS":
@@ -49,8 +41,7 @@ const WE2ETestsCellRenderer = ({ value }) => {
 
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
-      {value.map((test, index) => {
-        const { platform, compiler, result } = parseTestString(test);
+      {Object.entries(value).map(([platform, result], index) => {
         const color = getColor(result);
         return (
           <div
@@ -62,7 +53,7 @@ const WE2ETestsCellRenderer = ({ value }) => {
               color: "#000",
             }}
           >
-            {`${platform} - ${compiler}`}
+            {platform}
           </div>
         );
       })}
