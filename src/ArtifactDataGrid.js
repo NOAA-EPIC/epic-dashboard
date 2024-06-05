@@ -125,7 +125,7 @@ const columns = [
   {
     field: "WE2ETests",
     headerName: "Build Results",
-    width: 750,
+    width: 680,
     renderCell: (params) => <WE2ETestsCellRenderer value={params.value} />
   },
   {
