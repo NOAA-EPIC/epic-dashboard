@@ -3,16 +3,63 @@ import { DataGrid } from "@mui/x-data-grid";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
-  red: {
-    background: "#FD8369"
+  lightGrey: {
+    background: "#f0f0f0" // Light grey color for all rows
   },
-  green: {
-    background: "#81C784"
+  keyContainer: {
+    marginTop: "20px", // Updated to create space between table and key
+    marginBottom: "10px"
   },
-  grey: {
-    background: "#A9A9A9"
+  keyItem: {
+    marginRight: "20px",
+    display: "flex",
+    alignItems: "center"
+  },
+  keyColorBox: {
+    width: "20px",
+    height: "20px",
+    marginRight: "5px",
+    borderRadius: "50%"
   }
 });
+
+const WE2ETestsCellRenderer = ({ value }) => {
+  const getColor = (result) => {
+    switch (result) {
+      case "SUCCESS":
+        return "#81C784"; // green
+      case "FAILURE":
+        return "#FD8369"; // red
+      case "ABORTED":
+        return "#FFA500"; // orange
+      case "NOT_BUILT":
+        return "#A9A9A9"; // grey
+      default:
+        return "#FFFFFF"; // white
+    }
+  };
+
+  return (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
+      {Object.entries(value).map(([platform, result], index) => {
+        const color = getColor(result);
+        return (
+          <div
+            key={index}
+            style={{
+              backgroundColor: color,
+              padding: "5px 10px",
+              borderRadius: "5px",
+              color: "#000",
+            }}
+          >
+            {platform}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
 const ArtifactsCellRenderer = ({ value }) => {
   const [selectedArtifact, setSelectedArtifact] = useState("");
@@ -51,7 +98,7 @@ const ArtifactsCellRenderer = ({ value }) => {
           style={{
             marginLeft: "10px",
             backgroundColor: "#ffffff",
-            color: "#000000", 
+            color: "#000000",
           }}
         >
           Open
@@ -64,7 +111,6 @@ const ArtifactsCellRenderer = ({ value }) => {
 const columns = [
   { field: "Title", headerName: "Title", width: 100 },
   { field: "State", headerName: "State", width: 100 },
-  { field: "Result", headerName: "Result", width: 100 },
   { field: "Duration", headerName: "Duration", width: 75 },
   {
     field: "Timestamp",
@@ -75,6 +121,12 @@ const columns = [
       const withoutMicroseconds = timestamp.split(".")[0]; 
       return withoutMicroseconds;
     },
+  },
+  {
+    field: "WE2ETests",
+    headerName: "Build Results",
+    width: 680,
+    renderCell: (params) => <WE2ETestsCellRenderer value={params.value} />
   },
   {
     field: "Artifacts",
@@ -111,18 +163,6 @@ const ArtifactDataGrid = ({ endpoints }) => {
     fetchData();
   }, [endpoints]);
 
-  const getRowClass = (result) => {
-    if (result === "FAILURE") {
-      return classes.red;
-    } else if (result === "SUCCESS") {
-      return classes.green;
-    } else if (result === "ABORTED") {
-      return classes.grey;
-    } else {
-      return "";
-    }
-  };
-
   return (
     <div style={{ height: 500, width: "100%" }}>
       <DataGrid
@@ -130,10 +170,28 @@ const ArtifactDataGrid = ({ endpoints }) => {
         getRowId={(row) => row.id}
         rows={data}
         columns={columns}
-        getRowClassName={(params) => getRowClass(params.row.Result)}
+        getRowClassName={() => classes.lightGrey} // Apply light grey color to all rows
         pageSize={10}
         rowsPerPageOptions={[10, 20, 30]}
       />
+      <div className={classes.keyContainer}>
+        <div className={classes.keyItem}>
+          <div className={classes.keyColorBox} style={{ background: "#81C784" }} />
+          <span>Success</span>
+        </div>
+        <div className={classes.keyItem}>
+          <div className={classes.keyColorBox} style={{ background: "#FD8369" }} />
+          <span>Failure</span>
+        </div>
+        <div className={classes.keyItem}>
+          <div className={classes.keyColorBox} style={{ background: "#FFA500" }} />
+          <span>Aborted</span>
+        </div>
+        <div className={classes.keyItem}>
+          <div className={classes.keyColorBox} style={{ background: "#A9A9A9" }} />
+          <span>Not Built</span>
+        </div>
+      </div>
     </div>
   );
 };

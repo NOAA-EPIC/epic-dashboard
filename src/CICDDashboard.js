@@ -33,7 +33,7 @@ function CICDpiepline() {
   return (
     <div style={{ padding: 30 }}>
       {artifact_data_endpoints.map((endpoint, index) => (
-        <div key={index}>
+        <div key={index} style={{ marginBottom: 130 }}>
           <h1>{tableTitles[index]} CI/CD Artifacts</h1>
           <ArtifactDataGrid endpoints={[endpoint]} />
         </div>
