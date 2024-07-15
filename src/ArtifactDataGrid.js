@@ -4,23 +4,23 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   lightGrey: {
-    background: "#f0f0f0" // Light grey color for all rows
+    background: "#f0f0f0", // Light grey color for all rows
   },
   keyContainer: {
     marginTop: "20px", // Updated to create space between table and key
-    marginBottom: "10px"
+    marginBottom: "10px",
   },
   keyItem: {
     marginRight: "20px",
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
   },
   keyColorBox: {
     width: "20px",
     height: "20px",
     marginRight: "5px",
-    borderRadius: "50%"
-  }
+    borderRadius: "50%",
+  },
 });
 
 const WE2ETestsCellRenderer = ({ value }) => {
@@ -41,8 +41,13 @@ const WE2ETestsCellRenderer = ({ value }) => {
 
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
-      {Object.entries(value).map(([platform, result], index) => {
+      {value.map((test, index) => {
+        const match = test.match(/SRW_PLATFORM\s*=\s*'([^']*)'\s*SRW_COMPILER\s*=\s*'([^']*)'\s*(\w+)/);
+        if (!match) return null;
+
+        const [, platform, compiler, result] = match;
         const color = getColor(result);
+
         return (
           <div
             key={index}
@@ -53,7 +58,7 @@ const WE2ETestsCellRenderer = ({ value }) => {
               color: "#000",
             }}
           >
-            {platform}
+            {`${platform}-${compiler}`}
           </div>
         );
       })}
@@ -118,7 +123,7 @@ const columns = [
     width: 175,
     valueFormatter: (params) => {
       const timestamp = params.value;
-      const withoutMicroseconds = timestamp.split(".")[0]; 
+      const withoutMicroseconds = timestamp.split(".")[0];
       return withoutMicroseconds;
     },
   },
@@ -126,18 +131,18 @@ const columns = [
     field: "WE2ETests",
     headerName: "Build Results",
     width: 680,
-    renderCell: (params) => <WE2ETestsCellRenderer value={params.value} />
+    renderCell: (params) => <WE2ETestsCellRenderer value={params.value} />,
   },
   {
     field: "Artifacts",
     headerName: "Artifacts",
     width: 1000,
-    renderCell: (params) => <ArtifactsCellRenderer value={params.value} />
-  }
+    renderCell: (params) => <ArtifactsCellRenderer value={params.value} />,
+  },
 ];
 
 const ArtifactDataGrid = ({ endpoints }) => {
-  const classes = useStyles(); 
+  const classes = useStyles();
   const [data, setData] = useState([]);
 
   useEffect(() => {
