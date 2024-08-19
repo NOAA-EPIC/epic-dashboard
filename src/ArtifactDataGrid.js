@@ -125,7 +125,7 @@ const columns = [
   {
     field: "WE2ETests",
     headerName: "Build Results",
-    width: 680,
+    width: 400,
     renderCell: (params) => <WE2ETestsCellRenderer value={params.value} />
   },
   {
@@ -166,7 +166,7 @@ const ArtifactDataGrid = ({ endpoints }) => {
   return (
     <div style={{ height: 500, width: "100%" }}>
       <DataGrid
-        rowHeight={40}
+        rowHeight={80}
         getRowId={(row) => row.id}
         rows={data}
         columns={columns}
