@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 
-// Define columns
 const columns = [
   { field: "name", headerName: "Name", width: 200 },
-  { field: "email", headerName: "Email", width: 500 },
-  { field: "commits", headerName: "Commits", width: 100 }
+  { field: "commits", headerName: "Commits", width: 100 },
+  { field: "email", headerName: "Email", width: 500 }
 ];
 
 const TrafficDataGrid = ({ endpoints }) => {
@@ -29,14 +28,13 @@ const TrafficDataGrid = ({ endpoints }) => {
           ...j,
           traffic: j.activity.map((activity, id) => ({
             ...activity,
+            email: activity.email.includes("noreply") ? "" : activity.email,
             id: id + 1
           })),
           id: index + 1
         }));
 
         setData(jsonData);
-
-        // Set the "since" and "until" values from the JSON data
         if (jsonData.length > 0) {
           setSince(jsonData[0].since);
           setUntil(jsonData[0].until);
