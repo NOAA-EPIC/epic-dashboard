@@ -2,7 +2,8 @@ import React from "react";
 import { Typography, Box } from "@mui/material";
 import AllocationReport from "./AllocationReport";
 import SeleniumTestResults from "./SeleniumTestResults";
-import ApiTestResults from "./ApiTestResults";
+import ApiDiscussionResults from "./ApiDiscussionsResults";
+import ApiIssuesResults from "./ApiIssuesResults";
 import GithubTraffic from "./GithubTraffic";
 import CICDpiepline from "./CICDDashboard";
 
@@ -80,11 +81,11 @@ function TestDashboard() {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            color={getTabStyle("selenium").color}
-            backgroundColor={getTabStyle("selenium").backgroundColor}
-            onClick={() => setCurrentTab("selenium")}
+            color={getTabStyle("cicdPipeline").color}
+            backgroundColor={getTabStyle("cicdPipeline").backgroundColor}
+            onClick={() => setCurrentTab("cicdPipeline")}
           >
-            <Typography>Selenium Test Results</Typography>
+            <Typography>CI/CD Artifacts</Typography>
           </Box>
           <Box
             sx={{ cursor: "pointer" }}
@@ -106,6 +107,19 @@ function TestDashboard() {
             display="flex"
             justifyContent="center"
             alignItems="center"
+            color={getTabStyle("apiIssues").color}
+            backgroundColor={getTabStyle("apiIssues").backgroundColor}
+            onClick={() => setCurrentTab("apiIssues")}
+          >
+            <Typography>GitHub Issues</Typography>
+          </Box>
+          <Box
+            sx={{ cursor: "pointer" }}
+            height="100%"
+            width="15%"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
             color={getTabStyle("githubTraffic").color}
             backgroundColor={getTabStyle("githubTraffic").backgroundColor}
             onClick={() => setCurrentTab("githubTraffic")}
@@ -119,11 +133,11 @@ function TestDashboard() {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            color={getTabStyle("cicdPipeline").color}
-            backgroundColor={getTabStyle("cicdPipeline").backgroundColor}
-            onClick={() => setCurrentTab("cicdPipeline")}
+            color={getTabStyle("selenium").color}
+            backgroundColor={getTabStyle("selenium").backgroundColor}
+            onClick={() => setCurrentTab("selenium")}
           >
-            <Typography>CI/CD Artifacts</Typography>
+            <Typography>Selenium Test Results</Typography>
           </Box>
         </Box>
       </Box>
@@ -132,7 +146,9 @@ function TestDashboard() {
       ) : currentTab === "selenium" ? (
         <SeleniumTestResults />
       ) : currentTab === "apiDoc" ? (
-        <ApiTestResults />
+        <ApiDiscussionResults />
+      ) : currentTab === "apiIssues" ? (
+        <ApiIssuesResults />        
       ) : currentTab === "githubTraffic" ? (
         <GithubTraffic />
       ): (
