@@ -12,14 +12,16 @@ function TestDashboard() {
 
   const getTabStyle = (tab) => {
     let tabStyle = {
-      color: "black",
-      backgroundColor: "darkgray",
+      color: "#FFFFFF",
+      backgroundColor: "#333333",
+      align: "center",
     };
     if (tab === currentTab) {
       tabStyle = {
         ...tabStyle,
-        color: "white",
-        backgroundColor: "gray",
+        color: "#FFFFFF",
+        backgroundColor: "#0099D8",
+
       };
     }
     return tabStyle;
@@ -29,26 +31,7 @@ function TestDashboard() {
     <div>
       <Box
         sx={{
-          backgroundColor: "#0085CA",
-          width: "100%",
-          height: "35px",
-        }}
-      >
-        <Box
-          height="100%"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Typography fontSize="18px" color="white">
-            {" "}
-            Earth Prediction Innovation Center - Health Dashboard
-          </Typography>
-        </Box>
-      </Box>
-      <Box
-        sx={{
-          backgroundColor: "lightgray",
+          backgroundColor: "#333333",
           width: "100%",
           height: "45px",
         }}
