@@ -1,5 +1,5 @@
 import React from "react";
-import ItemDataGrid from "./ItemDataGrid";
+import IssueDataGrid from "./IssueDataGrid";
 import "./App.css";
 
 const issueEndpoints =  [
@@ -18,7 +18,7 @@ function ApiIssuesResults() {
         <h1>Issues</h1>
         <p>Includes: ufs-srweather-app, ufs-weather-model, UPP, land-DA_workflow, HAFS, and NOAA-EPIC/land-offline_workflow</p>
         <p><span style={{ color: 'red' }}>Red</span> indicates that there has been no initial reply to the author.</p>
-        <ItemDataGrid endpoints={issueEndpoints} />
+        <IssueDataGrid endpoints={issueEndpoints} />
       </div>
     </div>
   );
