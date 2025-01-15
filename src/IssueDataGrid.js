@@ -51,7 +51,13 @@ const IssueDataGrid = ({ endpoints }) => {
   ];
 
   const getRowClassName = (params) => {
+    if (params.row.initial_answer === "No" || params.row.author === params.row.last_commenter) {
+      return classes.red;
+    } else if (params.row.last_commenter === "gspetro-NOAA") {
+      return classes.green;
+    } else {
       return "";
+    }
   };
 
   return (
