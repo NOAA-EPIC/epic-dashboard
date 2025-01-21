@@ -17,7 +17,7 @@ function ApiIssuesResults() {
       <div>
         <h1>Issues</h1>
         <p>Includes: ufs-srweather-app, ufs-weather-model, UPP, land-DA_workflow, HAFS, and NOAA-EPIC/land-offline_workflow</p>
-        <p><span style={{ color: 'red' }}>Red</span> indicates that there has been no initial reply to the author. Only issues updated within the last 31 days are shown.</p>
+        <p><span style={{ color: 'red' }}>Red</span> indicates that there has been no initial reply to the author. Only issues labelled for EPIC support and issues created within the last two weeks are shown.</p>
         <IssueDataGrid endpoints={issueEndpoints} />
       </div>
     </div>
