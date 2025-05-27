@@ -47,7 +47,8 @@ const ItemDataGrid = ({ endpoints }) => {
     { field: "initial_answer", headerName: "Initial Answer?", width: 100},
     { field: "author", headerName: "Author", width: 130 },
     { field: "last_comment_date_time", headerName: "Last Comment", width: 170 },
-    { field: "last_commenter", headerName: "Last Comment Author", width: 150 }, 
+    { field: "last_commenter", headerName: "Last Comment Author", width: 170 },
+    { field: "labels", headerName: "Labels", width: 200}, 
   ];
 
   const getRowClassName = (params) => {

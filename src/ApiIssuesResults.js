@@ -3,12 +3,12 @@ import IssueDataGrid from "./IssueDataGrid";
 import "./App.css";
 
 const issueEndpoints =  [
-  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-hafs-community-HAFS.json',
-  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-NOAA-EMC-UPP.json',
-  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-NOAA-EPIC-land-offline_workflow.json',
-  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-ufs-community-land-DA_workflow.json',
-  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-ufs-community-ufs-srweather-app.json',
-  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-ufs-community-ufs-weather-model.json',
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-hafs-community-HAFS-dev.json',
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-NOAA-EMC-UPP-dev.json',
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-NOAA-EPIC-land-offline_workflow-dev.json',
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-ufs-community-land-DA_workflow-dev.json',
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-ufs-community-ufs-srweather-app-dev.json',
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-ufs-community-ufs-weather-model-dev.json',
 ];
 
 function ApiIssuesResults() {
