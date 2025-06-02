@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { makeStyles } from "@mui/styles";
+import { Chip } from "@mui/material";
 
 const useStyles = makeStyles({
   red: {
@@ -47,8 +48,20 @@ const ItemDataGrid = ({ endpoints }) => {
     { field: "initial_answer", headerName: "Initial Answer?", width: 100},
     { field: "author", headerName: "Author", width: 130 },
     { field: "last_comment_date_time", headerName: "Last Comment", width: 170 },
-    { field: "last_commenter", headerName: "Last Comment Author", width: 150 }, 
-  ];
+    { field: "last_commenter", headerName: "Last Comment Author", width: 170 },
+    {
+      field: "category",
+      headerName: "Category",
+      width: 150,
+      renderCell: (params) => (
+        <Chip 
+          label={params.value || "—"} 
+          size="small" 
+          sx={{ backgroundColor: "#363636", color: "#FFFFFF" }} 
+        />
+      )
+    }
+      ];
 
   const getRowClassName = (params) => {
     if (params.row.initial_answer === "No" || params.row.author === params.row.last_commenter) {
