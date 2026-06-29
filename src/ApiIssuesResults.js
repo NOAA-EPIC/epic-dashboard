@@ -10,7 +10,7 @@ const issueEndpoints =  [
   'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-ufs-community-land-DA_workflow.json',
   'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-ufs-community-ufs-srweather-app.json',
   'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-ufs-community-ufs-weather-model.json',
-  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-ufs-community-ufs-da_workflow.json',
+  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/issues-ufs-community-ufs-da-workflow.json',
 ];
 
 function ApiIssuesResults() {
