@@ -1,16 +1,17 @@
 import React from "react";
 import ItemDataGrid from "./ItemDataGrid";
 import "./App.css";
+import config from "./config";
 
 const discussionEndpoints = [
-  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/discussions-hafs-community-HAFS.json',
-  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/discussions-NOAA-EMC-UPP.json',
-  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/discussions-NOAA-EPIC-land-offline_workflow.json',
-  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/discussions-NOAA-EPIC-EAGLE.json',  
-  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/discussions-ufs-community-land-DA_workflow.json',
-  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/discussions-ufs-community-ufs-srweather-app.json',
-  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/discussions-ufs-community-ufs-weather-model.json',
-  'https://epic-health-dashboard-artifacts.s3.amazonaws.com/discussions-ufs-community-ufs-da-workflow.json',  
+  `${config.dataBucket}/discussions-hafs-community-HAFS.json`,
+  `${config.dataBucket}/discussions-NOAA-EMC-UPP.json`,
+  `${config.dataBucket}/discussions-NOAA-EPIC-land-offline_workflow.json`,
+  `${config.dataBucket}/discussions-NOAA-EPIC-EAGLE.json`,  
+  `${config.dataBucket}/discussions-ufs-community-land-DA_workflow.json`,
+  `${config.dataBucket}/discussions-ufs-community-ufs-srweather-app.json`,
+  `${config.dataBucket}/discussions-ufs-community-ufs-weather-model.json`,
+  `${config.dataBucket}/discussions-ufs-community-ufs-da-workflow.json`,  
 ];
 
 function ApiDiscussionResults() {
