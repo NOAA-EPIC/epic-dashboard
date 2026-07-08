@@ -39,9 +39,18 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-### `npm install` for first time use
+### `npm install`
 
 When you are running this (or any application) for the first time, you must run npm install to first download all the needed packages. Now you can run npm start.
+
+**Note: If you encounter dependency errors, try running the following commands from the project's root directory:** 
+
+```
+git checkout -- package-lock.json
+rm -rf node_modules
+npm ci --legacy-peer-deps`
+```
+
 
 ## Learn More
 
