@@ -1,7 +1,7 @@
 import React from "react";
-import { Typography, Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import AllocationReport from "./AllocationReport";
-import SeleniumTestResults from "./SeleniumTestResults";
+// import SeleniumTestResults from "./SeleniumTestResults";
 import ApiDiscussionResults from "./ApiDiscussionsResults";
 import ApiIssuesResults from "./ApiIssuesResults";
 import GithubTraffic from "./GithubTraffic";
@@ -10,22 +10,44 @@ import CICDpiepline from "./CICDDashboard";
 function TestDashboard() {
   const [currentTab, setCurrentTab] = React.useState("allocation");
 
-  const getTabStyle = (tab) => {
-    let tabStyle = {
-      color: "#FFFFFF",
-      backgroundColor: "#333333",
-      align: "center",
-    };
-    if (tab === currentTab) {
-      tabStyle = {
-        ...tabStyle,
-        color: "#FFFFFF",
-        backgroundColor: "#0099D8",
+  const tabs = [
+    {
+      id: "allocation",
+      label: "EPIC Allocation",
+      component: <AllocationReport />,
+    },
+    {
+      id: "cicdPipeline",
+      label: "CI/CD Artifacts",
+      component: <CICDpiepline />,
+    },
+    {
+      id: "apiDoc",
+      label: "GitHub Discussions",
+      component: <ApiDiscussionResults />,
+    },
+    {
+      id: "apiIssues",
+      label: "GitHub Issues",
+      component: <ApiIssuesResults />,
+    },
+    {
+      id: "githubTraffic",
+      label: "GitHub Traffic",
+      component: <GithubTraffic />,
+    },
 
-      };
-    }
-    return tabStyle;
-  };
+    /*
+    {
+      id: "selenium",
+      label: "Selenium Test Results",
+      component: <SeleniumTestResults />,
+    },
+    */
+  ];
+
+  const currentComponent =
+    tabs.find((tab) => tab.id === currentTab)?.component ?? <CICDpiepline />;
 
   return (
     <div>
@@ -43,100 +65,29 @@ function TestDashboard() {
           justifyContent="flex-start"
           alignItems="center"
         >
-          <Box
-            sx={{ cursor: "pointer" }}
-            height="100%"
-            width="15%"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            color={getTabStyle("allocation").color}
-            backgroundColor={getTabStyle("allocation").backgroundColor}
-            border={getTabStyle("allocation").border}
-            onClick={() => setCurrentTab("allocation")}
-          >
-            <Typography>EPIC Allocation</Typography>
-          </Box>
-          <Box
-            sx={{ cursor: "pointer" }}
-            height="100%"
-            width="15%"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            color={getTabStyle("cicdPipeline").color}
-            backgroundColor={getTabStyle("cicdPipeline").backgroundColor}
-            onClick={() => setCurrentTab("cicdPipeline")}
-          >
-            <Typography>CI/CD Artifacts</Typography>
-          </Box>
-          <Box
-            sx={{ cursor: "pointer" }}
-            height="100%"
-            width="15%"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            color={getTabStyle("apiDoc").color}
-            backgroundColor={getTabStyle("apiDoc").backgroundColor}
-            onClick={() => setCurrentTab("apiDoc")}
-          >
-            <Typography>GitHub Discussions</Typography>
-          </Box>
-          <Box
-            sx={{ cursor: "pointer" }}
-            height="100%"
-            width="15%"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            color={getTabStyle("apiIssues").color}
-            backgroundColor={getTabStyle("apiIssues").backgroundColor}
-            onClick={() => setCurrentTab("apiIssues")}
-          >
-            <Typography>GitHub Issues</Typography>
-          </Box>
-          <Box
-            sx={{ cursor: "pointer" }}
-            height="100%"
-            width="15%"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            color={getTabStyle("githubTraffic").color}
-            backgroundColor={getTabStyle("githubTraffic").backgroundColor}
-            onClick={() => setCurrentTab("githubTraffic")}
-          >
-            <Typography>GitHub Traffic</Typography>
-          </Box>
-          <Box
-            sx={{ cursor: "pointer" }}
-            height="100%"
-            width="15%"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            color={getTabStyle("selenium").color}
-            backgroundColor={getTabStyle("selenium").backgroundColor}
-            onClick={() => setCurrentTab("selenium")}
-          >
-            <Typography>Selenium Test Results</Typography>
-          </Box>
+          {tabs.map((tab) => (
+            <Box
+              key={tab.id}
+              sx={{
+                cursor: "pointer",
+                width: "15%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                color: "#FFFFFF",
+                backgroundColor:
+                  currentTab === tab.id ? "#0099D8" : "#333333",
+              }}
+              onClick={() => setCurrentTab(tab.id)}
+            >
+              <Typography>{tab.label}</Typography>
+            </Box>
+          ))}
         </Box>
       </Box>
-      {currentTab === "allocation" ? (
-        <AllocationReport />
-      ) : currentTab === "selenium" ? (
-        <SeleniumTestResults />
-      ) : currentTab === "apiDoc" ? (
-        <ApiDiscussionResults />
-      ) : currentTab === "apiIssues" ? (
-        <ApiIssuesResults />        
-      ) : currentTab === "githubTraffic" ? (
-        <GithubTraffic />
-      ): (
-        <CICDpiepline />
-      ) }
+
+      {currentComponent}
     </div>
   );
 }
