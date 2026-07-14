@@ -4,14 +4,14 @@ import "./App.css";
 import config from "./config";
 
 const issueEndpoints = [
-  `${config.dataBucket}/issues-hafs-community-HAFS.json`,
-  `${config.dataBucket}/issues-NOAA-EMC-UPP.json`,
-  `${config.dataBucket}/issues-NOAA-EPIC-land-offline_workflow.json`,
-  `${config.dataBucket}/issues-NOAA-EPIC-EAGLE.json`,  
-  `${config.dataBucket}/issues-ufs-community-land-DA_workflow.json`,
-  `${config.dataBucket}/issues-ufs-community-ufs-srweather-app.json`,
-  `${config.dataBucket}/issues-ufs-community-ufs-weather-model.json`,
-  `${config.dataBucket}/issues-ufs-community-ufs-da-workflow.json`,  
+  `${config.issuesBucket}/issues-hafs-community-HAFS.json`,
+  `${config.issuesBucket}/issues-NOAA-EMC-UPP.json`,
+  `${config.issuesBucket}/issues-NOAA-EPIC-land-offline_workflow.json`,
+  `${config.issuesBucket}/issues-NOAA-EPIC-EAGLE.json`,  
+  `${config.issuesBucket}/issues-ufs-community-land-DA_workflow.json`,
+  `${config.issuesBucket}/issues-ufs-community-ufs-srweather-app.json`,
+  `${config.issuesBucket}/issues-ufs-community-ufs-weather-model.json`,
+  `${config.issuesBucket}/issues-ufs-community-ufs-da-workflow.json`,  
 ];
 
 function ApiIssuesResults() {
