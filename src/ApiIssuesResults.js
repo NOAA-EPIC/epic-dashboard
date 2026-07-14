@@ -14,6 +14,7 @@ const issueFiles = [
   "issues-ufs-community-ufs-da-workflow.json",
 ];
 
+// Prepend the bucket to the path
 const issueEndpoints = issueFiles.map(
   file => `${config.issuesBucket}/${file}`
 );

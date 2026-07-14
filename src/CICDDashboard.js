@@ -9,6 +9,7 @@ const artifactDataFiles = [
   "land-DA_workflow-dashboard.json",
 ];
 
+// Prepend the bucket to the path
 const artifactDataEndpoints = artifactDataFiles.map(
   file => `${config.reactBucket}/${file}`
 );

@@ -14,6 +14,7 @@ const discussionFiles = [
   "discussions-ufs-community-ufs-da-workflow.json",
 ];
 
+// Prepend the bucket to the path 
 const discussionEndpoints = discussionFiles.map(
   file => `${config.discussionsBucket}/${file}`
 );

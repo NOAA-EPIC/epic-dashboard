@@ -1,12 +1,21 @@
 const hostname = window.location.hostname;
 
-const isDev =
+let isDev =
   hostname === 'localhost' ||
   hostname === '127.0.0.1' ||
   hostname.includes('-dev');
 
+//*****************************************************************************
+// You can uncomment the line below to test code locally using prod buckets
+// rather than dev buckets. This can be useful to make sure the prod buckets
+// don't have any permission or path issues. 
+
+// IMPORTANT: Re-comment this line before deploying.
+
+//isDev = false;
+//*****************************************************************************
+
 const env = isDev ? 'dev' : 'prod';
-//const env = 'prod';
 
 const discussionsBucket = `https://epic-health-dashboard-artifacts-${env}.s3.us-east-1.amazonaws.com`;
 const jenkinsBucket = `https://noaa-epic-${env}-jenkins-artifacts.s3.amazonaws.com`;
