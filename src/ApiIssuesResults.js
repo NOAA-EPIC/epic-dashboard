@@ -4,18 +4,18 @@ import "./App.css";
 import config from "./config";
 
 const issueFiles = [
-  "hafs-community-HAFS.json",
-  "NOAA-EMC-UPP.json",
-  "NOAA-EPIC-land-offline_workflow.json",
-  "NOAA-EPIC-EAGLE.json",
-  "ufs-community-land-DA_workflow.json",
-  "ufs-community-ufs-srweather-app.json",
-  "ufs-community-ufs-weather-model.json",
-  "ufs-community-ufs-da-workflow.json",
+  "issues-hafs-community-HAFS.json",
+  "issues-NOAA-EMC-UPP.json",
+  "issues-NOAA-EPIC-land-offline_workflow.json",
+  "issues-NOAA-EPIC-EAGLE.json",
+  "issues-ufs-community-land-DA_workflow.json",
+  "issues-ufs-community-ufs-srweather-app.json",
+  "issues-ufs-community-ufs-weather-model.json",
+  "issues-ufs-community-ufs-da-workflow.json",
 ];
 
 const issueEndpoints = issueFiles.map(
-  file => `${config.issuesBucket}/issues-${file}`
+  file => `${config.issuesBucket}/${file}`
 );
 
 function ApiIssuesResults() {

@@ -4,18 +4,18 @@ import "./App.css";
 import config from "./config";
 
 const discussionFiles = [
-  "hafs-community-HAFS.json",
-  "NOAA-EMC-UPP.json",
-  "NOAA-EPIC-land-offline_workflow.json",
-  "NOAA-EPIC-EAGLE.json",
-  "ufs-community-land-DA_workflow.json",
-  "ufs-community-ufs-srweather-app.json",
-  "ufs-community-ufs-weather-model.json",
-  "ufs-community-ufs-da-workflow.json",
+  "discussions-hafs-community-HAFS.json",
+  "discussions-NOAA-EMC-UPP.json",
+  "discussions-NOAA-EPIC-land-offline_workflow.json",
+  "discussions-NOAA-EPIC-EAGLE.json",
+  "discussions-ufs-community-land-DA_workflow.json",
+  "discussions-ufs-community-ufs-srweather-app.json",
+  "discussions-ufs-community-ufs-weather-model.json",
+  "discussions-ufs-community-ufs-da-workflow.json",
 ];
 
 const discussionEndpoints = discussionFiles.map(
-  file => `${config.discussionsBucket}/discussions-${file}`
+  file => `${config.discussionsBucket}/${file}`
 );
 
 function ApiDiscussionResults() {
