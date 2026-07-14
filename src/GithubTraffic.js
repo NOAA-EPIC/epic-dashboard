@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TrafficDataGrid from "./TrafficDataGrid";
 import "./App.css";
+import config from "./config";
 
 function GithubTraffic() {
   const [repoList, setRepoList] = useState([]);
@@ -9,7 +10,7 @@ function GithubTraffic() {
     const fetchRepoList = async () => {
       try {
         const response = await fetch(
-          "https://noaa-epic-prod-jenkins-artifacts.s3.amazonaws.com/jobs/infrastructure/dashboard-contributors/latest.txt"
+          `${config.jenkinsBucket}/jobs/infrastructure/dashboard-contributors/latest.txt`
         );
         const data = await response.text();
         const urls = data.split("\n").filter(url => url.trim() !== "");

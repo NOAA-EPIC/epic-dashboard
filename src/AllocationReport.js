@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import config from "./config";
 
 const HTMLLoader = ({ url }) => {
   const [htmlContent, setHtmlContent] = useState(null);
@@ -32,7 +33,7 @@ const AllocationReport = () => {
   useEffect(() => {
     const loadReportLinks = async () => {
       try {
-        const response = await fetch('https://noaa-epic-prod-jenkins-public-react.s3.amazonaws.com/monthly-logs/log_list.json');
+        const response = await fetch(`${config.reactBucket}/monthly-logs/log_list.json`);
         const data = await response.json();
         setReportLinks(data);
       } catch (error) {
@@ -45,7 +46,7 @@ const AllocationReport = () => {
 
   return (
     <div>
-      <HTMLLoader url={'https://noaa-epic-prod-jenkins-artifacts.s3.amazonaws.com/jobs/infrastructure/epic-account-info/report.html'} />
+      <HTMLLoader url={`${config.jenkinsBucket}/jobs/infrastructure/epic-account-info/report.html`} />
       <div>
         <h2>Previous Monthly Reports</h2>
         <ul>

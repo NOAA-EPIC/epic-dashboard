@@ -4,14 +4,14 @@ import "./App.css";
 import config from "./config";
 
 const discussionEndpoints = [
-  `${config.dataBucket}/discussions-hafs-community-HAFS.json`,
-  `${config.dataBucket}/discussions-NOAA-EMC-UPP.json`,
-  `${config.dataBucket}/discussions-NOAA-EPIC-land-offline_workflow.json`,
-  `${config.dataBucket}/discussions-NOAA-EPIC-EAGLE.json`,  
-  `${config.dataBucket}/discussions-ufs-community-land-DA_workflow.json`,
-  `${config.dataBucket}/discussions-ufs-community-ufs-srweather-app.json`,
-  `${config.dataBucket}/discussions-ufs-community-ufs-weather-model.json`,
-  `${config.dataBucket}/discussions-ufs-community-ufs-da-workflow.json`,  
+  `${config.discussionsBucket}/discussions-hafs-community-HAFS.json`,
+  `${config.discussionsBucket}/discussions-NOAA-EMC-UPP.json`,
+  `${config.discussionsBucket}/discussions-NOAA-EPIC-land-offline_workflow.json`,
+  `${config.discussionsBucket}/discussions-NOAA-EPIC-EAGLE.json`,  
+  `${config.discussionsBucket}/discussions-ufs-community-land-DA_workflow.json`,
+  `${config.discussionsBucket}/discussions-ufs-community-ufs-srweather-app.json`,
+  `${config.discussionsBucket}/discussions-ufs-community-ufs-weather-model.json`,
+  `${config.discussionsBucket}/discussions-ufs-community-ufs-da-workflow.json`,  
 ];
 
 function ApiDiscussionResults() {
