@@ -3,16 +3,20 @@ import ItemDataGrid from "./ItemDataGrid";
 import "./App.css";
 import config from "./config";
 
-const discussionEndpoints = [
-  `${config.discussionsBucket}/discussions-hafs-community-HAFS.json`,
-  `${config.discussionsBucket}/discussions-NOAA-EMC-UPP.json`,
-  `${config.discussionsBucket}/discussions-NOAA-EPIC-land-offline_workflow.json`,
-  `${config.discussionsBucket}/discussions-NOAA-EPIC-EAGLE.json`,  
-  `${config.discussionsBucket}/discussions-ufs-community-land-DA_workflow.json`,
-  `${config.discussionsBucket}/discussions-ufs-community-ufs-srweather-app.json`,
-  `${config.discussionsBucket}/discussions-ufs-community-ufs-weather-model.json`,
-  `${config.discussionsBucket}/discussions-ufs-community-ufs-da-workflow.json`,  
+const discussionFiles = [
+  "hafs-community-HAFS.json",
+  "NOAA-EMC-UPP.json",
+  "NOAA-EPIC-land-offline_workflow.json",
+  "NOAA-EPIC-EAGLE.json",
+  "ufs-community-land-DA_workflow.json",
+  "ufs-community-ufs-srweather-app.json",
+  "ufs-community-ufs-weather-model.json",
+  "ufs-community-ufs-da-workflow.json",
 ];
+
+const discussionEndpoints = discussionFiles.map(
+  file => `${config.discussionsBucket}/discussions-${file}`
+);
 
 function ApiDiscussionResults() {
   return (

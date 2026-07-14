@@ -3,11 +3,15 @@ import ArtifactDataGrid from "./ArtifactDataGrid";
 import "./App.css";
 import config from "./config";
 
-const artifact_data_endpoints = [
-  `${config.reactBucket}/ufs-srweather-app-dashboard.json`,
-  `${config.reactBucket}/ufs-weather-model-dashboard.json`, 
-  `${config.reactBucket}/land-DA_workflow-dashboard.json`,
+const artifactDataFiles = [
+  "ufs-srweather-app-dashboard.json",
+  "ufs-weather-model-dashboard.json",
+  "land-DA_workflow-dashboard.json",
 ];
+
+const artifactDataEndpoints = artifactDataFiles.map(
+  file => `${config.reactBucket}/${file}`
+);
 
 function removeDashboard(title) {
   return title.replace(/-dashboard.*$/i, "").trim();
@@ -25,7 +29,7 @@ function CICDpiepline() {
       return projectName;
     };
 
-    const titles = artifact_data_endpoints.map((endpoint) =>
+    const titles = artifactDataEndpoints.map((endpoint) =>
       removeDashboard(extractProjectName(endpoint))
     );
     setTableTitles(titles);
@@ -33,7 +37,7 @@ function CICDpiepline() {
 
   return (
     <div style={{ padding: 30 }}>
-      {artifact_data_endpoints.map((endpoint, index) => (
+      {artifactDataEndpoints.map((endpoint, index) => (
         <div key={index} style={{ marginBottom: 130 }}>
           <h1>{tableTitles[index]} CI/CD Artifacts</h1>
           <ArtifactDataGrid endpoints={[endpoint]} />
