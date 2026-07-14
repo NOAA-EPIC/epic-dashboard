@@ -3,16 +3,21 @@ import IssueDataGrid from "./IssueDataGrid";
 import "./App.css";
 import config from "./config";
 
-const issueEndpoints = [
-  `${config.issuesBucket}/issues-hafs-community-HAFS.json`,
-  `${config.issuesBucket}/issues-NOAA-EMC-UPP.json`,
-  `${config.issuesBucket}/issues-NOAA-EPIC-land-offline_workflow.json`,
-  `${config.issuesBucket}/issues-NOAA-EPIC-EAGLE.json`,  
-  `${config.issuesBucket}/issues-ufs-community-land-DA_workflow.json`,
-  `${config.issuesBucket}/issues-ufs-community-ufs-srweather-app.json`,
-  `${config.issuesBucket}/issues-ufs-community-ufs-weather-model.json`,
-  `${config.issuesBucket}/issues-ufs-community-ufs-da-workflow.json`,  
+const issueFiles = [
+  "issues-hafs-community-HAFS.json",
+  "issues-NOAA-EMC-UPP.json",
+  "issues-NOAA-EPIC-land-offline_workflow.json",
+  "issues-NOAA-EPIC-EAGLE.json",
+  "issues-ufs-community-land-DA_workflow.json",
+  "issues-ufs-community-ufs-srweather-app.json",
+  "issues-ufs-community-ufs-weather-model.json",
+  "issues-ufs-community-ufs-da-workflow.json",
 ];
+
+// Prepend the bucket to the path
+const issueEndpoints = issueFiles.map(
+  file => `${config.issuesBucket}/${file}`
+);
 
 function ApiIssuesResults() {
   return (

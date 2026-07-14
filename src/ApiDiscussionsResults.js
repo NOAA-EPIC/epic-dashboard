@@ -3,16 +3,21 @@ import ItemDataGrid from "./ItemDataGrid";
 import "./App.css";
 import config from "./config";
 
-const discussionEndpoints = [
-  `${config.discussionsBucket}/discussions-hafs-community-HAFS.json`,
-  `${config.discussionsBucket}/discussions-NOAA-EMC-UPP.json`,
-  `${config.discussionsBucket}/discussions-NOAA-EPIC-land-offline_workflow.json`,
-  `${config.discussionsBucket}/discussions-NOAA-EPIC-EAGLE.json`,  
-  `${config.discussionsBucket}/discussions-ufs-community-land-DA_workflow.json`,
-  `${config.discussionsBucket}/discussions-ufs-community-ufs-srweather-app.json`,
-  `${config.discussionsBucket}/discussions-ufs-community-ufs-weather-model.json`,
-  `${config.discussionsBucket}/discussions-ufs-community-ufs-da-workflow.json`,  
+const discussionFiles = [
+  "discussions-hafs-community-HAFS.json",
+  "discussions-NOAA-EMC-UPP.json",
+  "discussions-NOAA-EPIC-land-offline_workflow.json",
+  "discussions-NOAA-EPIC-EAGLE.json",
+  "discussions-ufs-community-land-DA_workflow.json",
+  "discussions-ufs-community-ufs-srweather-app.json",
+  "discussions-ufs-community-ufs-weather-model.json",
+  "discussions-ufs-community-ufs-da-workflow.json",
 ];
+
+// Prepend the bucket to the path 
+const discussionEndpoints = discussionFiles.map(
+  file => `${config.discussionsBucket}/${file}`
+);
 
 function ApiDiscussionResults() {
   return (
