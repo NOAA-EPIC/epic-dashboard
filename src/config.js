@@ -17,7 +17,7 @@ let isDev =
 
 const env = isDev ? 'dev' : 'prod';
 
-const discussionsBucket = `https://epic-health-dashboard-artifacts-${env}.s3.us-east-1.amazonaws.com`;
+const discussionsBucket = `https://noaa-epic-${env}-discussions-artifacts.s3.us-east-1.amazonaws.com`;
 const jenkinsBucket = `https://noaa-epic-${env}-jenkins-artifacts.s3.amazonaws.com`;
 const reactBucket = `https://noaa-epic-${env}-jenkins-public-react.s3.amazonaws.com`;
 
